@@ -2,18 +2,24 @@ const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 const ball = new BALL;
 const paddle = new PADDLE;
+const bricks = new BRICK;
+const scoreBoard = new SCORE;
 
-ball.r = 10;
-paddle.width = 70;
-paddle.height = 10;
-
-ball.dx = 2;
-ball.dy = -2;
-ball.x = canvas.width / 2;
-ball.y = canvas.height - 30;
-paddle.x = (canvas.width - paddle.width) / 2
+let brickField = [];
+let score = 0;
 let rightPressed = false;
 let leftPressed = false;
+
+for (let c = 0; c < bricks.columnCount; c++) {
+    brickField[c] = [];
+    for (let r = 0; r < bricks.rowCount; r++) {
+        brickField[c][r] = {
+            x: 0,
+            y: 0,
+            status: 1
+        };
+    }
+}
 
 document.addEventListener("keydown", e => {
     e.key == "ArrowRight" ? rightPressed = true : null;
@@ -28,12 +34,18 @@ document.addEventListener("keyup", e => {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ball.draw();
-    ball.bounce();
+    ball.move();
 
     paddle.draw();
     paddle.move();
 
+    bricks.draw();
+    bricks.collisionDetection();
+
+    scoreBoard.draw();
+
     ball.x += ball.dx;
     ball.y += ball.dy;
+    requestAnimationFrame(draw)
 }
-let interval = setInterval(draw, 10);
+draw();
