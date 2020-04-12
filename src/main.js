@@ -21,6 +21,11 @@ for (let c = 0; c < bricks.columnCount; c++) {
     }
 }
 
+document.addEventListener('mousemove', e => {
+    let relativeX = e.clientX - canvas.offsetLeft;
+    paddle.mouse(relativeX);
+})
+
 document.addEventListener("keydown", e => {
     e.key == "ArrowRight" ? rightPressed = true : null;
     e.key == "ArrowLeft" ? leftPressed = true : null;

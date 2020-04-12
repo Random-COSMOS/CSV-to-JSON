@@ -1,13 +1,11 @@
-function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const randomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 class BALL {
     constructor() {
         this.x = canvas.width / 2;
         this.y = canvas.height - 30;
-        this.dx = 2;
-        this.dy = -2;
+        this.dx = 4;
+        this.dy = -4;
         this.r = 10;
     }
 
@@ -28,8 +26,7 @@ class BALL {
             this.dy = -this.dy;
         } else if (this.y + this.dy > canvas.height - this.r) {
             if (this.x >= paddle.x && this.x <= paddle.x + paddle.width) {
-                ball.dy > 0 ? ball.dy = randomInteger(2,3) : ball.dy = -randomInteger(2,3);
-                ball.dx > 0 ? ball.dx = randomInteger(2,3) : ball.dx = -randomInteger(2,3);
+                this.dx > 0 ? this.dx = randomInteger(1, 2) : this.dx = -randomInteger(1, 2);
                 this.dy = -this.dy;
             } else {
                 alert("Game Over");
@@ -41,7 +38,7 @@ class BALL {
 
 class PADDLE {
     constructor() {
-        this.width = 70;
+        this.width = 75;
         this.height = 10;
         this.x = (canvas.width - this.width) / 2;
     }
@@ -65,6 +62,12 @@ class PADDLE {
             }
         }
     }
+
+     mouse(relativeX) {
+         if (relativeX > 0 && relativeX < canvas.width) {
+             this.x = relativeX - this.width / 2;
+         }
+     }
 }
 
 class BRICK {
@@ -77,7 +80,7 @@ class BRICK {
         this.height = 20;
         this.padding = 20;
         this.offsetTop = 30;
-        this.offsetLeft = 15;
+        this.offsetLeft = canvas.width / 32;
     }
 
     draw() {
@@ -107,6 +110,7 @@ class BRICK {
                             ball.dy = -ball.dy;
                             brick.status = 0;
                             score++;
+                            ball.dx > 0 ? ball.dx = randomInteger(1, 4) : ball.dx = -randomInteger(1, 4);
                             if (score == this.rowCount * this.columnCount) {
                                 alert('You Win')
                                 document.location.reload();
