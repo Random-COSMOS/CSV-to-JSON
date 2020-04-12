@@ -29,8 +29,9 @@ class BALL {
                 this.dx > 0 ? this.dx = randomInteger(1, 2) : this.dx = -randomInteger(1, 2);
                 this.dy = -this.dy;
             } else {
-                alert("Game Over");
-                window.location.reload();   
+                alert('GAME OVER');
+                document.location.reload();
+                cancelAnimationFrame(frame);
             }
         }
     }
@@ -114,6 +115,7 @@ class BRICK {
                             if (score == this.rowCount * this.columnCount) {
                                 alert('You Win')
                                 document.location.reload();
+                                cancelAnimationFrame(frame)
                             }
                         }
                     }
@@ -123,8 +125,8 @@ class BRICK {
     }
 }
 
-class SCORE {
-    draw() {
+class TEXT {
+    score() {
         ctx.font = '16px Arial';
         ctx.fillStyle = '#0095DD'
         ctx.fillText(`Score: ${score}`, 8, 20)

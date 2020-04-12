@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 const ball = new BALL;
 const paddle = new PADDLE;
 const bricks = new BRICK;
-const scoreBoard = new SCORE;
+const text = new TEXT;
 
 let brickField = [];
 let score = 0;
@@ -24,7 +24,6 @@ for (let c = 0; c < bricks.columnCount; c++) {
 document.addEventListener('touchmove', e => {
     let relativeX = e.changedTouches[0].clientX - canvas.offsetLeft;
     paddle.mouse(relativeX);
-    console.log(e.changedTouches[0].clientX)
 })
 
 document.addEventListener('mousemove', e => {
@@ -53,10 +52,10 @@ function draw() {
     bricks.draw();
     bricks.collisionDetection();
 
-    scoreBoard.draw();
+    text.score();
 
     ball.x += ball.dx;
     ball.y += ball.dy;
-    requestAnimationFrame(draw)
+    let frame = requestAnimationFrame(draw)
 }
 draw();
