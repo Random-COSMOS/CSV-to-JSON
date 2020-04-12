@@ -30,7 +30,7 @@ class BALL {
                 this.dy = -this.dy;
             } else {
                 alert("Game Over");
-                window.location.reload();;
+                window.location.reload();   
             }
         }
     }

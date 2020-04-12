@@ -21,6 +21,12 @@ for (let c = 0; c < bricks.columnCount; c++) {
     }
 }
 
+document.addEventListener('touchmove', e => {
+    let relativeX = e.changedTouches[0].clientX - canvas.offsetLeft;
+    paddle.mouse(relativeX);
+    console.log(e.changedTouches[0].clientX)
+})
+
 document.addEventListener('mousemove', e => {
     let relativeX = e.clientX - canvas.offsetLeft;
     paddle.mouse(relativeX);
